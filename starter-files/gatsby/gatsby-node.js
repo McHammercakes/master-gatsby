@@ -82,7 +82,7 @@ async function turnToppingsIntoPages({ graphql, actions }) {
 // })
 // }
 
-async function turnSliceMastersInfoPages({ graphql, actions }) {
+async function turnSliceMastersIntoPages({ graphql, actions }) {
 	// 1. query all slicemaster
 	const { data } = await graphql(`
 		query {
@@ -99,6 +99,17 @@ async function turnSliceMastersInfoPages({ graphql, actions }) {
 		}
 	`);
 	// TODO 2. turn each slicemaster into their own page
+	data.slicemasters.nodes.forEach((slicemaster) => {
+		actions.createPage({
+			path: `/slicemaster/${slicemaster.slug.current}`,
+			component: path.resolve('./src/templates/Slicemaster.js'),
+			context: {
+				name: slicemaster.name,
+				slug: slicemaster.slug.current,
+			},
+		});
+	});
+
 	// 3. figure out how many pages their are based on how many slicemasters and how many per page
 	const pageSize = parseInt(process.env.GATSBY_PAGE_SIZE);
 	const pageCount = Math.ceil(data.slicemasters.totalCount / pageSize);
@@ -110,7 +121,7 @@ async function turnSliceMastersInfoPages({ graphql, actions }) {
 			component: path.resolve('./src/pages/slicemasters.js'),
 			context: {
 				skip: i * pageSize,
-				cuurentPage: i + 1,
+				currentPage: i + 1,
 				pageSize,
 			},
 		});
@@ -156,7 +167,7 @@ export async function createPages(params) {
 	await Promise.all([
 		turnPizzasIntoPages(params),
 		turnToppingsIntoPages(params),
-		turnSliceMastersInfoPages(params),
+		turnSliceMastersIntoPages(params),
 	]);
 	// 1. Pizzas
 	// 2. Toppings

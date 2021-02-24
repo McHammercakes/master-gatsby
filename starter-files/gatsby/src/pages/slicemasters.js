@@ -3,14 +3,15 @@ import { graphql, Link } from 'gatsby';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import Pagination from '../components/Pagination';
+import SEO from '../components/SEO';
 
-const SlicemasterGrid = styled.div`
+export const SlicemasterGrid = styled.div`
 	display: grid;
 	grid-gap: 2rem;
 	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 `;
 
-const SlicemasterStyles = styled.div`
+export const SlicemasterStyles = styled.div`
 	a {
 		text-decoration: none;
 	}
@@ -44,8 +45,9 @@ export default function SlicemastersPage({ data, pageContext }) {
 	const { slicemasters } = data;
 	return (
 		<>
+			<SEO title={`Slicemasters-Page ${pageContext.currentPage || 1}`} />
 			<Pagination
-				pageSize={pageContext.pageSize}
+				pageSize={parseInt(process.env.GATSBY_PAGE_SIZE)}
 				totalCount={slicemasters.totalCount}
 				currentPage={pageContext.currentPage || 1}
 				skip={pageContext.skip}
