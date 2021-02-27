@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { UseFormObject } from '../interfaces/UseFormObject';
 
-export default function useForm(defaults) {
+export default function useForm(defaults: UseFormObject) {
 	const [values, setValues] = useState(defaults);
 
-	function updateValue(e) {
+	function updateValue(e: React.ChangeEvent<HTMLInputElement>) {
 		// check if its a number and convert
-		let value = e.target.value;
+		let value: string | number = e.target.value;
 		if (e.target.type === 'number') {
 			value = parseInt(value);
 		}

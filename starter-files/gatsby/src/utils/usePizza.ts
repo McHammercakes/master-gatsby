@@ -1,26 +1,39 @@
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import OrderContext from '../components/OrderContext';
 import attachNameAndPrices from './attachNameAndPrices';
 import calculateOrderTotal from './calculateOrderTotal';
+import { Pizza } from '../interfaces/Pizza';
+import { Pizzas } from '../interfaces/Pizzas';
 
-export default function usePizza({ pizzas, values }) {
+interface Values {
+	name: string;
+	email: string;
+	mapleSyrup: string;
+}
+
+interface Props {
+	pizzas: Pizzas;
+	values: Values;
+}
+
+export default function usePizza({ pizzas, values }: Props) {
 	// 1. Create some state to hold order
 	// const [order, setOrder] = useState([]);
 	const [order, setOrder] = useContext(OrderContext);
-	const [error, setError] = useState();
-	const [loading, setLoading] = useState(false);
-	const [message, setMessage] = useState('');
+	const [error, setError] = useState<string>();
+	const [loading, setLoading] = useState<boolean>(false);
+	const [message, setMessage] = useState<string>('');
 
 	// 2. make a function to add things to order
-	function addToOrder(orderedPizza) {
+	function addToOrder(orderedPizza: Pizza) {
 		setOrder([...order, orderedPizza]);
 	}
 	// 3. make a function to remove things from order
-	function removeFromOrder(index) {
+	function removeFromOrder(index: string) {
 		setOrder([...order.slice(0, index), ...order.slice(index + 1)]);
 	}
 
-	async function submitOrder(e) {
+	async function submitOrder(e: React.FormEvent) {
 		e.preventDefault();
 		setLoading(true);
 		setError(null);
