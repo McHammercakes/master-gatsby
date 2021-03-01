@@ -5,6 +5,30 @@ import styled from 'styled-components';
 import Pagination from '../components/Pagination';
 import SEO from '../components/SEO';
 
+interface Props {
+  data: {
+    slicemasters: {
+      totalCount: number;
+			nodes: Array<Slicemaster>
+    }
+  }
+  pageContext: any;
+}
+
+interface Slicemaster {
+  id: string;
+  name: string;
+  slug: {
+    current: string;
+  }
+  description: string;
+  image: {
+    asset: {
+      fluid: any;
+    }
+  }
+}
+
 export const SlicemasterGrid = styled.div`
 	display: grid;
 	grid-gap: 2rem;
@@ -41,7 +65,7 @@ export const SlicemasterStyles = styled.div`
 	}
 `;
 
-export default function SlicemastersPage({ data, pageContext }) {
+export default function SlicemastersPage({ data, pageContext }: Props) {
 	const { slicemasters } = data;
 	return (
 		<>

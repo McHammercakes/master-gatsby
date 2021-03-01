@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Item } from '../interfaces/Item';
 
 const gql = String.raw;
 
@@ -17,9 +18,9 @@ const deets = `
 
 export default function useLatestData() {
 	// hot slices
-	const [hotSlices, setHotSlices] = useState();
+	const [hotSlices, setHotSlices] = useState<Array<Item>>();
 	// slicemasters
-	const [slicemasters, setSlicemasters] = useState();
+	const [slicemasters, setSlicemasters] = useState<Array<Item>>();
 	// Use a side effect to fetcht he data from the graphql endpoint
 	useEffect(function () {
 		// when the component loads, fetch the data

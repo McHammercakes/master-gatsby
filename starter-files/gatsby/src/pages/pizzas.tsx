@@ -3,9 +3,19 @@ import { graphql } from 'gatsby';
 import PizzaList from '../components/PizzaList';
 import ToppingsFilter from '../components/ToppingsFilter';
 import SEO from '../components/SEO';
+import { Pizza } from '../interfaces/Pizza';
 
-export default function PizzasPage({ data, pageContext }) {
-	const pizzas = data.pizzas.nodes;
+interface Props {
+  data: {
+    pizzas: {
+      nodes: Array<Pizza>
+    }
+  }
+  pageContext: any;
+}
+
+export default function PizzasPage({ data, pageContext }: Props) {
+	const { pizzas } = data;
 	return (
 		<>
 			<SEO

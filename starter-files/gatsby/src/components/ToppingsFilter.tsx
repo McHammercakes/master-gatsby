@@ -1,6 +1,12 @@
 import React from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import styled from 'styled-components';
+import { Pizzas } from '../interfaces/Pizzas';
+import { Topping } from '../interfaces/Topping';
+
+interface Props {
+  activeTopping: string;
+}
 
 const ToppingStyles = styled.div`
 	display: flex;
@@ -27,9 +33,9 @@ const ToppingStyles = styled.div`
 	}
 `;
 
-function countPizzasInToppings(pizzas) {
+function countPizzasInToppings(pizzas: Pizzas) {
 	// Return the pizzas with counts
-	const counts = pizzas
+	const counts = pizzas.nodes
 		.map((pizza) => pizza.toppings)
 		.flat()
 		.reduce((acc, topping) => {
@@ -50,13 +56,13 @@ function countPizzasInToppings(pizzas) {
 		}, {});
 	// sort based on their count
 	const sortedToppings = Object.values(counts).sort(
-		(a, b) => b.count - a.count
+		(a: Topping, b: Topping) => b.count - a.count
 	);
 
 	return sortedToppings;
 }
 
-export default function ToppingsFilter({ activeTopping }) {
+export default function ToppingsFilter({ activeTopping }: Props) {
 	// get a list of all the toppings
 	const { toppings, pizzas } = useStaticQuery(graphql`
 		query {
@@ -80,7 +86,7 @@ export default function ToppingsFilter({ activeTopping }) {
 	console.clear();
 	// get a list of all pizzas with their toppings
 	// count how many pizzas are in each topping
-	const toppingsWithCounts = countPizzasInToppings(pizzas.nodes);
+	const toppingsWithCounts = countPizzasInToppings(pizzas);
 	console.log(toppingsWithCounts);
 	// loop over the list of toppings and display the topping and the count of pizzas in that topping
 	// link it up...
@@ -90,7 +96,7 @@ export default function ToppingsFilter({ activeTopping }) {
 				<span className='name'>All</span>
 				<span className='count'>{pizzas.nodes.length}</span>
 			</Link>
-			{toppingsWithCounts.map((topping) => (
+			{toppingsWithCounts.map((topping: Topping) => (
 				<Link
 					to={`/topping/${topping.name}`}
 					key={topping.id}

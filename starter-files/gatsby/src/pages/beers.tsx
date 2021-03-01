@@ -3,6 +3,25 @@ import React from 'react';
 import styled from 'styled-components';
 import SEO from '../components/SEO';
 
+interface Beers {
+	data: {
+		beers: {
+			nodes: Array<Beer>;
+		};
+	};
+}
+
+interface Beer {
+	id: string;
+	name: string;
+	price: number;
+	image: string;
+	rating: {
+		reviews: string;
+		average: number;
+	};
+}
+
 const BeerGridStyles = styled.div`
 	display: grid;
 	grid-gap: 2rem;
@@ -23,14 +42,12 @@ const SingleBeerStyles = styled.div`
 	}
 `;
 
-export default function BeersPage({ data }) {
+export default function BeersPage({ data }: Beers) {
 	const { beers } = data;
 	return (
 		<div>
 			<SEO title={`Beers! We have ${beers.nodes.length} in stock!`} />
-			<h2 className='center'>
-				We have {beers.nodes.length} Beers Available. Dine in Only!
-			</h2>
+			<h2 className='center'>We have {} Beers Available. Dine in Only!</h2>
 			<BeerGridStyles>
 				{beers.nodes.map((beer) => {
 					const ratings = Math.round(beer.rating.average);

@@ -12,4 +12,8 @@ export interface Pizza {
 	slug: {
 		current: string;
 	};
+	toppings?: Array<{
+		id: string;
+		name: string;
+	}>;
 }

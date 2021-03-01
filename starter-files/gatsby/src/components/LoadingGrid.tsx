@@ -1,7 +1,11 @@
 import React from 'react';
 import { ItemsGrid, ItemStyles } from '../styles/Grids';
 
-export default function LoadingGrid({ count }) {
+interface Count {
+  count: number;
+}
+
+export default function LoadingGrid({ count }: Count) {
 	return (
 		<ItemsGrid>
 			{Array.from({ length: count }, (_, i) => (

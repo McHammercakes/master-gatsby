@@ -3,8 +3,16 @@ import MenuItemStyles from '../styles/MenuItemStyles';
 import Img from 'gatsby-image';
 import formatMoney from '../utils/formatMoney';
 import calculatePizzaPrice from '../utils/calculatePizzaPrice';
+import { Order } from '../interfaces/Order';
+import { Pizzas } from '../interfaces/Pizzas';
 
-export default function PizzaOrder({ order, pizzas, removeFromOrder }) {
+interface Props {
+  order: Array<Order>;
+  pizzas: Pizzas;
+  removeFromOrder: Function;
+}
+
+export default function PizzaOrder({ order, pizzas, removeFromOrder }: Props) {
 	return (
 		<>
 			{order.map((singleOrder, i) => {

@@ -2,6 +2,16 @@ import React from 'react';
 import { Link } from 'gatsby';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
+import { Pizza } from '../interfaces/Pizza';
+import { Pizzas } from '../interfaces/Pizzas';
+
+interface SinglePizzaProps {
+  pizza: Pizza;
+}
+
+interface PizzasProp {
+  pizzas: Pizzas;
+}
 
 const PizzaGridStyles = styled.div`
 	display: grid;
@@ -25,7 +35,7 @@ const PizzaStyles = styled.div`
 	}
 `;
 
-function SinglePizza({ pizza }) {
+function SinglePizza({ pizza }: SinglePizzaProps) {
 	return (
 		<PizzaStyles>
 			<Link to={`/pizza/${pizza.slug.current}`}>
@@ -39,10 +49,10 @@ function SinglePizza({ pizza }) {
 	);
 }
 
-export default function PizzaList({ pizzas }) {
+export default function PizzaList({ pizzas }: PizzasProp) {
 	return (
 		<PizzaGridStyles>
-			{pizzas.map((pizza) => (
+			{pizzas.nodes.map((pizza) => (
 				<SinglePizza pizza={pizza} key={pizza.id} />
 			))}
 		</PizzaGridStyles>

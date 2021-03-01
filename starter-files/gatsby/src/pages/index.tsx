@@ -3,8 +3,17 @@ import useLatestData from '../utils/useLatestData';
 import { HomePageGrid } from '../styles/Grids';
 import LoadingGrid from '../components/LoadingGrid';
 import ItemGrid from '../components/ItemGrid';
+import { Item } from '../interfaces/Item';
 
-function CurrentlySlicing({ slicemasters }) {
+interface SlicemastersProps {
+  slicemasters: Array<Item>;
+}
+
+interface HotSlicesProps {
+  hotSlices: Array<Item>;
+}
+
+function CurrentlySlicing({ slicemasters }: SlicemastersProps) {
 	return (
 		<div>
 			<h2 className='center'>
@@ -19,7 +28,7 @@ function CurrentlySlicing({ slicemasters }) {
 		</div>
 	);
 }
-function HotSlices({ hotSlices }) {
+function HotSlices({ hotSlices }: HotSlicesProps) {
 	return (
 		<div>
 			<h2 className='center'>
@@ -34,7 +43,8 @@ function HotSlices({ hotSlices }) {
 }
 
 export default function HomePage() {
-	const { slicemasters, hotSlices } = useLatestData();
+
+  const	{ slicemasters, hotSlices } = useLatestData();
 
 	return (
 		<div className='center'>

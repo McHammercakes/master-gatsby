@@ -2,6 +2,13 @@ import React from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
 
+interface Props {
+  pageSize: number;
+	totalCount: number;
+	currentPage: number;
+	base: string;
+}
+
 const PaginationStyles = styled.div`
 	display: flex;
 	align-content: center;
@@ -37,9 +44,8 @@ export default function Pagination({
 	pageSize,
 	totalCount,
 	currentPage,
-	skip,
 	base,
-}) {
+}: Props) {
 	// make some variables
 	const totalPages = Math.ceil(totalCount / pageSize);
 	const prevPage = currentPage - 1;

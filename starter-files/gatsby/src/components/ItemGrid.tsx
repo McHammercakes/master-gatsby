@@ -1,7 +1,8 @@
 import React from 'react';
+import { Items } from '../interfaces/Item';
 import { ItemsGrid, ItemStyles } from '../styles/Grids';
 
-export default function ItemGrid({ items }) {
+export default function ItemGrid({ items }: Items) {
 	return (
 		<ItemsGrid>
 			{items.map((item) => (

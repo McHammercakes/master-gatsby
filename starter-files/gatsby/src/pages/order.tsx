@@ -10,8 +10,17 @@ import MenuItemStyles from '../styles/MenuItemStyles';
 import usePizza from '../utils/usePizza';
 import PizzaOrder from '../components/PizzaOrder';
 import calculateOrderTotal from '../utils/calculateOrderTotal';
+import {Pizza} from '../interfaces/Pizza'
 
-export default function OrderPage({ data }) {
+interface Props {
+  data: {
+    pizzas: {
+      nodes: Array<Pizza>
+    }
+  }
+}
+
+export default function OrderPage({ data }: Props) {
 	const { pizzas } = data;
 	const { values, updateValue } = useForm({
 		name: '',

@@ -2,7 +2,16 @@ import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-export default function SEO({ children, location, description, title, image }) {
+interface Props {
+  children?: React.ReactNode;
+  location?: any;
+  description?: string;
+  title?: string;
+  image?: string;
+}
+
+export default function SEO({ children, location, description, title, image }: Props) {
+  console.log(location)
 	const { site } = useStaticQuery(graphql`
 		query {
 			site {
