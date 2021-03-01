@@ -31,7 +31,7 @@ async function turnPizzasIntoPages({ graphql, actions }) {
 
 async function turnToppingsIntoPages({ graphql, actions }) {
 	// 1. get the template
-	const toppingTemplate = path.resolve(`./src/pages/pizzas.js`);
+	const toppingTemplate = path.resolve(`./src/pages/pizzas.tsx`);
 	// 2. query all toppings
 	const { data } = await graphql(`
 		query {
@@ -118,7 +118,7 @@ async function turnSliceMastersIntoPages({ graphql, actions }) {
 		console.log(`creating page ${i}`);
 		actions.createPage({
 			path: `/slicemasters/${i + 1}`,
-			component: path.resolve('./src/pages/slicemasters.js'),
+			component: path.resolve('./src/pages/slicemasters.tsx'),
 			context: {
 				skip: i * pageSize,
 				currentPage: i + 1,
